@@ -1,738 +1,278 @@
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Progressive Python 3 — 30 Programs for Middle School CS</title>
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:var(--font-sans);color:var(--color-text-primary)}
-.wrap{padding:1rem 0}
-.search-bar{display:flex;gap:8px;margin-bottom:1rem;align-items:center}
-.search-bar input{flex:1;padding:8px 12px;border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);background:var(--color-background-primary);color:var(--color-text-primary);font-size:14px}
-.filter-row{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:1.25rem}
-.pill{padding:5px 12px;border-radius:20px;font-size:12px;cursor:pointer;border:0.5px solid var(--color-border-secondary);background:var(--color-background-secondary);color:var(--color-text-secondary);transition:all 0.15s}
-.pill.active{background:#3C3489;border-color:#3C3489;color:#EEEDFE}
-.pill:hover:not(.active){background:var(--color-background-tertiary)}
-.prog-card{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);margin-bottom:10px;overflow:hidden}
-.prog-header{display:flex;align-items:flex-start;gap:10px;padding:12px 14px;cursor:pointer;user-select:none}
-.prog-num{width:28px;height:28px;border-radius:6px;background:#EEEDFE;color:#3C3489;font-size:12px;font-weight:500;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
-.prog-header-text{flex:1;min-width:0}
-.prog-title{font-size:14px;font-weight:500;color:var(--color-text-primary)}
-.prog-sub{font-size:12px;color:var(--color-text-secondary);margin-top:2px}
-.prog-badge{font-size:11px;padding:2px 8px;border-radius:20px;white-space:nowrap;flex-shrink:0;margin-top:3px}
-.badge-1{background:#E1F5EE;color:#085041}.badge-2{background:#E6F1FB;color:#0C447C}
-.badge-3{background:#FAEEDA;color:#633806}.badge-4{background:#FAECE7;color:#4A1B0C}
-.badge-5{background:#EAF3DE;color:#173404}.badge-6{background:#FBEAF0;color:#4B1528}
-.badge-7{background:#FCEBEB;color:#501313}
-.chevron{color:var(--color-text-tertiary);font-size:16px;flex-shrink:0;transition:transform 0.2s}
-.chevron.open{transform:rotate(180deg)}
-.prog-body{display:none;border-top:0.5px solid var(--color-border-tertiary)}
-.prog-body.show{display:block}
-.note-bar{padding:10px 14px;font-size:12px;color:var(--color-text-secondary);background:var(--color-background-secondary);border-bottom:0.5px solid var(--color-border-tertiary);line-height:1.5}
-.note-bar strong{color:var(--color-text-primary);font-weight:500}
-.concept-tags{display:flex;gap:5px;flex-wrap:wrap;padding:8px 14px;border-bottom:0.5px solid var(--color-border-tertiary)}
-.ctag{font-size:11px;padding:2px 7px;background:var(--color-background-tertiary);border-radius:4px;color:var(--color-text-secondary);font-family:var(--font-mono)}
-.code-block{position:relative}
-.copy-btn{position:absolute;top:8px;right:10px;padding:4px 10px;font-size:11px;border:0.5px solid var(--color-border-secondary);border-radius:5px;background:var(--color-background-secondary);color:var(--color-text-secondary);cursor:pointer;z-index:1}
-.copy-btn:hover{background:var(--color-background-tertiary)}
-pre{padding:12px 14px;overflow-x:auto;font-size:12.5px;line-height:1.6;font-family:var(--font-mono);color:var(--color-text-primary);background:var(--color-background-secondary)}
-.stats{font-size:12px;color:var(--color-text-tertiary);margin-bottom:10px}
-.no-results{text-align:center;color:var(--color-text-secondary);padding:2rem;font-size:14px}
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: Georgia, serif; background: #f4f1eb; color: #1a1a1a; }
+  header { background: #1a2744; color: white; padding: 2rem; }
+  header h1 { font-size: 1.6rem; margin-bottom: 0.3rem; }
+  header p { font-size: 0.9rem; color: #a0b0cc; }
+  .toolbar { background: #fff; border-bottom: 2px solid #e0ddd5; padding: 1rem 2rem; display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; position: sticky; top: 0; z-index: 100; }
+  .toolbar input { padding: 6px 12px; border: 1px solid #ccc; border-radius: 4px; font-size: 0.9rem; width: 220px; }
+  .pill { padding: 5px 14px; border-radius: 20px; border: 1px solid #ccc; background: #f0ede8; font-size: 0.8rem; cursor: pointer; }
+  .pill.active { background: #1a2744; color: white; border-color: #1a2744; }
+  .main { max-width: 960px; margin: 0 auto; padding: 1.5rem; }
+  .level-group { margin-bottom: 2.5rem; }
+  .level-heading { font-size: 1rem; font-weight: bold; text-transform: uppercase; letter-spacing: 0.08em; color: #1a2744; border-left: 4px solid #1a2744; padding-left: 10px; margin-bottom: 1rem; }
+  .card { background: white; border: 1px solid #ddd; border-radius: 8px; margin-bottom: 1rem; overflow: hidden; }
+  .card-header { display: flex; align-items: flex-start; gap: 12px; padding: 14px 16px; cursor: pointer; background: white; }
+  .card-header:hover { background: #fafaf8; }
+  .num { width: 32px; height: 32px; border-radius: 6px; background: #1a2744; color: white; font-size: 0.8rem; font-weight: bold; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .card-info { flex: 1; }
+  .card-title { font-size: 1rem; font-weight: bold; }
+  .card-sub { font-size: 0.82rem; color: #666; margin-top: 2px; }
+  .arrow { font-size: 1.2rem; color: #999; transition: transform 0.2s; flex-shrink: 0; margin-top: 4px; }
+  .arrow.open { transform: rotate(90deg); }
+  .card-body { display: none; border-top: 1px solid #eee; }
+  .card-body.show { display: block; }
+  .note { background: #f0f4ff; border-left: 3px solid #1a2744; padding: 10px 14px; font-size: 0.85rem; color: #333; line-height: 1.5; }
+  .note strong { color: #1a2744; }
+  .tags { display: flex; flex-wrap: wrap; gap: 6px; padding: 10px 14px; background: #fafaf8; border-bottom: 1px solid #eee; }
+  .tag { background: #e8f0fe; color: #1a2744; border-radius: 4px; font-family: monospace; font-size: 0.78rem; padding: 2px 8px; }
+  .code-wrap { position: relative; }
+  .copy-btn { position: absolute; top: 8px; right: 10px; padding: 4px 12px; font-size: 0.75rem; background: #1a2744; color: white; border: none; border-radius: 4px; cursor: pointer; }
+  .copy-btn:hover { background: #2a3a60; }
+  pre { background: #1e1e2e; color: #cdd6f4; padding: 1.2rem 1rem; overflow-x: auto; font-size: 0.82rem; line-height: 1.6; font-family: 'Courier New', monospace; }
+  .hidden { display: none; }
+  .count { font-size: 0.82rem; color: #888; margin-left: auto; }
+  @media print {
+    .toolbar { display: none; }
+    .card-body { display: block !important; }
+    .arrow { display: none; }
+  }
 </style>
+</head>
+<body>
 
-<div class="wrap">
-<h2 class="sr-only">Progressive Python 3 reference — 30 programs for middle school CS</h2>
-<div class="search-bar">
-  <i class="ti ti-search" style="color:var(--color-text-tertiary);font-size:16px" aria-hidden="true"></i>
-  <input type="text" id="search" placeholder="Search programs, concepts...">
+<header>
+  <h1>Progressive Python 3 — 30 Programs for Middle School CS</h1>
+  <p>Blue Valley 229 · CodeHS-compatible · Live coding reference</p>
+</header>
+
+<div class="toolbar">
+  <input type="text" id="search" placeholder="Search programs or concepts..." oninput="render()">
+  <button class="pill active" onclick="setLevel(0,this)">All</button>
+  <button class="pill" onclick="setLevel(1,this)">1: Output &amp; Variables</button>
+  <button class="pill" onclick="setLevel(2,this)">2: Conditionals</button>
+  <button class="pill" onclick="setLevel(3,this)">3: Loops</button>
+  <button class="pill" onclick="setLevel(4,this)">4: Functions</button>
+  <button class="pill" onclick="setLevel(5,this)">5: Lists &amp; Strings</button>
+  <button class="pill" onclick="setLevel(6,this)">6: Dictionaries</button>
+  <button class="pill" onclick="setLevel(7,this)">7: OOP</button>
+  <span class="count" id="count"></span>
 </div>
-<div class="filter-row" id="filters"></div>
-<div class="stats" id="stats"></div>
-<div id="list"></div>
-</div>
+
+<div class="main" id="main"></div>
 
 <script>
-const LEVELS=[
-  {id:1,name:"Level 1: Output & Variables",short:"Output & Variables"},
-  {id:2,name:"Level 2: Conditionals",short:"Conditionals"},
-  {id:3,name:"Level 3: Loops",short:"Loops"},
-  {id:4,name:"Level 4: Functions",short:"Functions"},
-  {id:5,name:"Level 5: Lists & Strings",short:"Lists & Strings"},
-  {id:6,name:"Level 6: Dictionaries",short:"Dictionaries"},
-  {id:7,name:"Level 7: Classes & OOP",short:"OOP"},
+var activeLevel = 0;
+
+var LEVELS = [
+  {id:1, name:"Level 1: Output & Variables"},
+  {id:2, name:"Level 2: Conditionals"},
+  {id:3, name:"Level 3: Loops"},
+  {id:4, name:"Level 4: Functions"},
+  {id:5, name:"Level 5: Lists & Strings"},
+  {id:6, name:"Level 6: Dictionaries"},
+  {id:7, name:"Level 7: Classes & OOP"},
 ];
 
-const PROGRAMS=[
+var PROGRAMS = [
   {n:1,level:1,title:"Hello, World!",sub:"Your first print statement",tags:["print()"],
    note:"The starting point of every CS course. Focus on the syntax of print() and the quotation marks.",
-   code:`print("Hello, World!")
-print("My name is Claude.")
-print("Welcome to Python 3!")`},
+   code:'print("Hello, World!")\nprint("My name is Alex.")\nprint("Welcome to Python 3!")'},
 
   {n:2,level:1,title:"Personal Introduction",sub:"Variables and print",tags:["variables","str","int","print()"],
-   note:"Introduce the concept that variables are containers. Ask students: what data type is each variable?",
-   code:`name = "Alex"
-age = 13
-grade = 7
+   note:"Introduce variables as containers. Ask students: what data type is each variable?",
+   code:'name = "Alex"\nage = 13\ngrade = 7\n\nprint("Name:", name)\nprint("Age:", age)\nprint("Grade:", grade)'},
 
-print("Name:", name)
-print("Age:", age)
-print("Grade:", grade)`},
-
-  {n:3,level:1,title:"Mad Libs Story",sub:"Input, string concatenation",tags:["input()","string concat","+"],
+  {n:3,level:1,title:"Mad Libs Story",sub:"input(), string concatenation",tags:["input()","string concat","+"],
    note:"A crowd-pleaser. Students see immediately why input() matters. Walk through how + joins strings.",
-   code:`noun = input("Enter a noun: ")
-verb = input("Enter a verb: ")
-adjective = input("Enter an adjective: ")
+   code:'noun = input("Enter a noun: ")\nverb = input("Enter a verb: ")\nadjective = input("Enter an adjective: ")\n\nstory = "The " + adjective + " " + noun + " loves to " + verb + " every day."\nprint(story)'},
 
-story = "The " + adjective + " " + noun + " loves to " + verb + " every day."
-print(story)`},
-
-  {n:4,level:1,title:"Temperature Converter",sub:"Math with variables, f-strings",tags:["float","math ops","f-strings","input()"],
-   note:"Introduces type conversion with float(). F-strings are cleaner than +, so model both and let students compare.",
-   code:`celsius = float(input("Enter temperature in Celsius: "))
-fahrenheit = (celsius * 9/5) + 32
-
-print(f"{celsius}°C is equal to {fahrenheit:.1f}°F")`},
+  {n:4,level:1,title:"Temperature Converter",sub:"Math, type conversion, f-strings",tags:["float()","math ops","f-strings","input()"],
+   note:"Introduces float() for type conversion. F-strings are cleaner than +; model both and let students compare.",
+   code:'celsius = float(input("Enter temperature in Celsius: "))\nfahrenheit = (celsius * 9/5) + 32\n\nprint(f"{celsius}°C is equal to {fahrenheit:.1f}°F")'},
 
   {n:5,level:1,title:"Simple Calculator",sub:"User input, all four operations",tags:["int()","float()","operators","input()"],
-   note:"Good place to discuss operator precedence. Let students predict what happens with integer vs float division.",
-   code:`num1 = float(input("Enter first number: "))
-num2 = float(input("Enter second number: "))
-
-print(f"Addition:    {num1} + {num2} = {num1 + num2}")
-print(f"Subtraction: {num1} - {num2} = {num1 - num2}")
-print(f"Multiply:    {num1} * {num2} = {num1 * num2}")
-print(f"Division:    {num1} / {num2} = {num1 / num2:.2f}")`},
+   note:"Good place to discuss operator precedence. Let students predict integer vs float division.",
+   code:'num1 = float(input("Enter first number: "))\nnum2 = float(input("Enter second number: "))\n\nprint(f"Addition:    {num1} + {num2} = {num1 + num2}")\nprint(f"Subtraction: {num1} - {num2} = {num1 - num2}")\nprint(f"Multiply:    {num1} * {num2} = {num1 * num2}")\nprint(f"Division:    {num1} / {num2} = {num1 / num2:.2f}")'},
 
   {n:6,level:2,title:"Even or Odd",sub:"if / else and the modulo operator",tags:["if/else","%","int()"],
-   note:"The modulo operator (%) is new vocabulary. Spend time on why num % 2 == 0 means even.",
-   code:`num = int(input("Enter a whole number: "))
-
-if num % 2 == 0:
-    print(f"{num} is even.")
-else:
-    print(f"{num} is odd.")`},
+   note:"Modulo (%) is new vocabulary. Spend time on why num % 2 == 0 means even.",
+   code:'num = int(input("Enter a whole number: "))\n\nif num % 2 == 0:\n    print(f"{num} is even.")\nelse:\n    print(f"{num} is odd.")'},
 
   {n:7,level:2,title:"Grade Classifier",sub:"if / elif / else chains",tags:["if/elif/else","comparison ops","int()"],
-   note:"Great for building the 'only one branch runs' mental model. Ask: what happens if score is exactly 90?",
-   code:`score = int(input("Enter your score (0-100): "))
-
-if score >= 90:
-    grade = "A"
-elif score >= 80:
-    grade = "B"
-elif score >= 70:
-    grade = "C"
-elif score >= 60:
-    grade = "D"
-else:
-    grade = "F"
-
-print(f"Score: {score}  →  Grade: {grade}")`},
+   note:"Builds the 'only one branch runs' mental model. Ask: what happens if score is exactly 90?",
+   code:'score = int(input("Enter your score (0-100): "))\n\nif score >= 90:\n    grade = "A"\nelif score >= 80:\n    grade = "B"\nelif score >= 70:\n    grade = "C"\nelif score >= 60:\n    grade = "D"\nelse:\n    grade = "F"\n\nprint(f"Score: {score}  →  Grade: {grade}")'},
 
   {n:8,level:2,title:"Password Checker",sub:"String comparison, boolean logic",tags:["if/else","and","str comparison"],
-   note:"Discuss why == is used (not =). Extend by adding a minimum length check using len().",
-   code:`SECRET = "bluevalley229"
-username = input("Enter username: ")
-password = input("Enter password: ")
+   note:"Discuss why == is used instead of =. Extend by adding a length check with len().",
+   code:'SECRET = "bluevalley229"\nusername = input("Enter username: ")\npassword = input("Enter password: ")\n\nif username == "student" and password == SECRET:\n    print("Access granted! Welcome.")\nelse:\n    print("Access denied. Try again.")'},
 
-if username == "student" and password == SECRET:
-    print("Access granted! Welcome.")
-else:
-    print("Access denied. Try again.")`},
-
-  {n:9,level:2,title:"Movie Ticket Pricer",sub:"Compound conditions, age logic",tags:["if/elif/else","and","or","int()"],
+  {n:9,level:2,title:"Movie Ticket Pricer",sub:"Compound conditions, age-based logic",tags:["if/elif/else","and","or","int()"],
    note:"Real-world context lands well. Ask students to draw a flowchart of this logic before coding.",
-   code:`age = int(input("Enter your age: "))
-is_member = input("Are you a member? (yes/no): ").lower()
-
-if age < 5:
-    price = 0.00
-elif age <= 12 or age >= 65:
-    price = 6.50
-else:
-    price = 12.00
-
-if is_member == "yes":
-    price = price * 0.80
-    print(f"Member discount applied!")
-
-print(f"Your ticket price: ${price:.2f}")`},
+   code:'age = int(input("Enter your age: "))\nis_member = input("Are you a member? (yes/no): ").lower()\n\nif age < 5:\n    price = 0.00\nelif age <= 12 or age >= 65:\n    price = 6.50\nelse:\n    price = 12.00\n\nif is_member == "yes":\n    price = price * 0.80\n    print("Member discount applied!")\n\nprint(f"Your ticket price: ${price:.2f}")'},
 
   {n:10,level:2,title:"FizzBuzz",sub:"Classic logic challenge",tags:["if/elif/else","%","range()","for"],
-   note:"A classic interview problem. Have students predict the output for 15 before running it. Discuss why FizzBuzz must come first.",
-   code:`for num in range(1, 31):
-    if num % 15 == 0:
-        print("FizzBuzz")
-    elif num % 3 == 0:
-        print("Fizz")
-    elif num % 5 == 0:
-        print("Buzz")
-    else:
-        print(num)`},
+   note:"A classic CS problem. Have students predict the output for 15 before running. Discuss why FizzBuzz must come first.",
+   code:'for num in range(1, 31):\n    if num % 15 == 0:\n        print("FizzBuzz")\n    elif num % 3 == 0:\n        print("Fizz")\n    elif num % 5 == 0:\n        print("Buzz")\n    else:\n        print(num)'},
 
   {n:11,level:3,title:"Countdown Timer",sub:"while loop, decrement",tags:["while","decrement"],
-   note:"The most visual while loop intro. Ask: when does it stop? What changes the condition each time?",
-   code:`countdown = 10
+   note:"Most visual while loop intro. Ask: when does it stop? What changes the condition each iteration?",
+   code:'countdown = 10\n\nwhile countdown > 0:\n    print(f"T-minus {countdown}...")\n    countdown -= 1\n\nprint("Liftoff!")'},
 
-while countdown > 0:
-    print(f"T-minus {countdown}...")
-    countdown -= 1
-
-print("Liftoff! 🚀")`},
-
-  {n:12,level:3,title:"Sum Accumulator",sub:"while loop, running total",tags:["while","accumulator pattern","int()"],
+  {n:12,level:3,title:"Sum Accumulator",sub:"while loop, running total pattern",tags:["while","accumulator pattern","int()"],
    note:"The accumulator pattern is foundational. Show the variable changing on a whiteboard step-by-step.",
-   code:`total = 0
-count = 0
-
-print("Enter numbers to add. Type 0 to stop.")
-
-num = int(input("Enter a number: "))
-while num != 0:
-    total += num
-    count += 1
-    num = int(input("Enter a number: "))
-
-if count > 0:
-    print(f"Sum: {total}  |  Count: {count}  |  Average: {total/count:.1f}")
-else:
-    print("No numbers entered.")`},
+   code:'total = 0\ncount = 0\n\nprint("Enter numbers to add. Type 0 to stop.")\n\nnum = int(input("Enter a number: "))\nwhile num != 0:\n    total += num\n    count += 1\n    num = int(input("Enter a number: "))\n\nif count > 0:\n    print(f"Sum: {total}  |  Count: {count}  |  Average: {total/count:.1f}")\nelse:\n    print("No numbers entered.")'},
 
   {n:13,level:3,title:"Multiplication Table",sub:"for loop with range()",tags:["for","range()","f-strings"],
    note:"Students can customize with their own number. Discuss why range() is exclusive of the stop value.",
-   code:`num = int(input("Which multiplication table? "))
-
-print(f"\n--- {num} Times Table ---")
-for i in range(1, 13):
-    print(f"  {num} x {i:2} = {num * i}")`},
+   code:'num = int(input("Which multiplication table? "))\n\nprint(f"\\n--- {num} Times Table ---")\nfor i in range(1, 13):\n    print(f"  {num} x {i:2} = {num * i}")'},
 
   {n:14,level:3,title:"Star Pattern Printer",sub:"Nested for loops",tags:["nested loops","for","range()"],
    note:"Nested loops are hard. Walk through the outer loop (rows) and inner loop (columns) separately before combining.",
-   code:`rows = int(input("How many rows? "))
-
-print("\nTriangle:")
-for i in range(1, rows + 1):
-    print("*" * i)
-
-print("\nSquare:")
-for i in range(rows):
-    print("*" * rows)
-
-print("\nDiamond top:")
-for i in range(1, rows + 1):
-    print(" " * (rows - i) + "*" * (2 * i - 1))`},
+   code:'rows = int(input("How many rows? "))\n\nprint("\\nTriangle:")\nfor i in range(1, rows + 1):\n    print("*" * i)\n\nprint("\\nSquare:")\nfor i in range(rows):\n    print("*" * rows)\n\nprint("\\nDiamond top:")\nfor i in range(1, rows + 1):\n    print(" " * (rows - i) + "*" * (2 * i - 1))'},
 
   {n:15,level:3,title:"Number Guessing Game",sub:"while loop, random, game loop",tags:["while","random","import","break"],
-   note:"First use of import. The game loop pattern (play until win) is a big CS concept. Count attempts with an accumulator.",
-   code:`import random
-
-secret = random.randint(1, 100)
-attempts = 0
-guessed = False
-
-print("I'm thinking of a number between 1 and 100.")
-
-while not guessed:
-    guess = int(input("Your guess: "))
-    attempts += 1
-
-    if guess < secret:
-        print("Too low! Try higher.")
-    elif guess > secret:
-        print("Too high! Try lower.")
-    else:
-        guessed = True
-
-print(f"You got it in {attempts} attempts! The number was {secret}.")`},
+   note:"First use of import. The game loop pattern is a major CS concept. Count attempts with an accumulator.",
+   code:'import random\n\nsecret = random.randint(1, 100)\nattempts = 0\nguessed = False\n\nprint("I\'m thinking of a number between 1 and 100.")\n\nwhile not guessed:\n    guess = int(input("Your guess: "))\n    attempts += 1\n\n    if guess < secret:\n        print("Too low! Try higher.")\n    elif guess > secret:\n        print("Too high! Try lower.")\n    else:\n        guessed = True\n\nprint(f"You got it in {attempts} attempts! The number was {secret}.")'},
 
   {n:16,level:4,title:"Greeting Function",sub:"def, calling functions",tags:["def","function call","parameters"],
-   note:"The jump from writing code to wrapping it in a function is big. Emphasize: define once, call many times.",
-   code:`def greet(name):
-    print(f"Hello, {name}! Welcome to Python.")
-    print(f"Have a great day, {name}!\n")
+   note:"Define once, call many times. The jump from writing code to wrapping it in a function is a big conceptual step.",
+   code:'def greet(name):\n    print(f"Hello, {name}! Welcome to Python.")\n    print(f"Have a great day, {name}!\\n")\n\ngreet("Alex")\ngreet("Jordan")\ngreet("Sam")'},
 
-greet("Alex")
-greet("Jordan")
-greet("Sam")`},
-
-  {n:17,level:4,title:"Calculator Functions",sub:"Parameters, return values",tags:["def","return","parameters"],
+  {n:17,level:4,title:"Calculator Functions",sub:"Parameters and return values",tags:["def","return","parameters"],
    note:"Return is the hardest function concept. Show that return sends a value back — printing inside a function is different.",
-   code:`def add(a, b):
-    return a + b
-
-def subtract(a, b):
-    return a - b
-
-def multiply(a, b):
-    return a * b
-
-def divide(a, b):
-    if b == 0:
-        return "Error: division by zero"
-    return a / b
-
-x = float(input("First number: "))
-y = float(input("Second number: "))
-
-print(f"Add:      {add(x, y)}")
-print(f"Subtract: {subtract(x, y)}")
-print(f"Multiply: {multiply(x, y)}")
-print(f"Divide:   {divide(x, y):.2f}")`},
+   code:'def add(a, b):\n    return a + b\n\ndef subtract(a, b):\n    return a - b\n\ndef multiply(a, b):\n    return a * b\n\ndef divide(a, b):\n    if b == 0:\n        return "Error: division by zero"\n    return a / b\n\nx = float(input("First number: "))\ny = float(input("Second number: "))\n\nprint(f"Add:      {add(x, y)}")\nprint(f"Subtract: {subtract(x, y)}")\nprint(f"Multiply: {multiply(x, y)}")\nprint(f"Divide:   {divide(x, y):.2f}")'},
 
   {n:18,level:4,title:"Shape Area Calculator",sub:"Multiple functions, math module",tags:["def","return","import math","parameters"],
    note:"Students can add their own shapes. math.pi is a great intro to modules containing constants, not just functions.",
-   code:`import math
-
-def circle_area(radius):
-    return math.pi * radius ** 2
-
-def rectangle_area(length, width):
-    return length * width
-
-def triangle_area(base, height):
-    return 0.5 * base * height
-
-shape = input("Shape (circle/rectangle/triangle): ").lower()
-
-if shape == "circle":
-    r = float(input("Radius: "))
-    print(f"Area = {circle_area(r):.2f}")
-elif shape == "rectangle":
-    l = float(input("Length: "))
-    w = float(input("Width: "))
-    print(f"Area = {rectangle_area(l, w):.2f}")
-elif shape == "triangle":
-    b = float(input("Base: "))
-    h = float(input("Height: "))
-    print(f"Area = {triangle_area(b, h):.2f}")
-else:
-    print("Unknown shape.")`},
+   code:'import math\n\ndef circle_area(radius):\n    return math.pi * radius ** 2\n\ndef rectangle_area(length, width):\n    return length * width\n\ndef triangle_area(base, height):\n    return 0.5 * base * height\n\nshape = input("Shape (circle/rectangle/triangle): ").lower()\n\nif shape == "circle":\n    r = float(input("Radius: "))\n    print(f"Area = {circle_area(r):.2f}")\nelif shape == "rectangle":\n    l = float(input("Length: "))\n    w = float(input("Width: "))\n    print(f"Area = {rectangle_area(l, w):.2f}")\nelif shape == "triangle":\n    b = float(input("Base: "))\n    h = float(input("Height: "))\n    print(f"Area = {triangle_area(b, h):.2f}")\nelse:\n    print("Unknown shape.")'},
 
   {n:19,level:4,title:"Is Prime?",sub:"Functions with logic, boolean return",tags:["def","return bool","for","if"],
-   note:"Good opportunity to discuss why we only check up to the square root. Returns True/False — a boolean-return function.",
-   code:`def is_prime(n):
-    if n < 2:
-        return False
-    for i in range(2, int(n ** 0.5) + 1):
-        if n % i == 0:
-            return False
-    return True
-
-num = int(input("Enter a number: "))
-
-if is_prime(num):
-    print(f"{num} is a prime number.")
-else:
-    print(f"{num} is not a prime number.")
-
-print("\nPrime numbers up to 50:")
-primes = [n for n in range(2, 51) if is_prime(n)]
-print(primes)`},
+   note:"Returns True/False — a boolean-return function. Good discussion: why check only up to the square root?",
+   code:'def is_prime(n):\n    if n < 2:\n        return False\n    for i in range(2, int(n ** 0.5) + 1):\n        if n % i == 0:\n            return False\n    return True\n\nnum = int(input("Enter a number: "))\n\nif is_prime(num):\n    print(f"{num} is a prime number.")\nelse:\n    print(f"{num} is not a prime number.")\n\nprint("\\nPrime numbers up to 50:")\nprimes = [n for n in range(2, 51) if is_prime(n)]\nprint(primes)'},
 
   {n:20,level:4,title:"Recursive Countdown",sub:"Intro to recursion",tags:["recursion","def","base case"],
-   note:"Draw the call stack on the board. Base case first, always. Compare side-by-side with the while loop version.",
-   code:`def countdown(n):
-    if n <= 0:
-        print("Blastoff!")
-        return
-    print(n)
-    countdown(n - 1)
-
-def factorial(n):
-    if n == 0 or n == 1:
-        return 1
-    return n * factorial(n - 1)
-
-countdown(5)
-
-num = int(input("\nFactorial of: "))
-print(f"{num}! = {factorial(num)}")`},
+   note:"Draw the call stack on the board. Base case always first. Compare side-by-side with the while loop version.",
+   code:'def countdown(n):\n    if n <= 0:\n        print("Blastoff!")\n        return\n    print(n)\n    countdown(n - 1)\n\ndef factorial(n):\n    if n == 0 or n == 1:\n        return 1\n    return n * factorial(n - 1)\n\ncountdown(5)\n\nnum = int(input("\\nFactorial of: "))\nprint(f"{num}! = {factorial(num)}")'},
 
   {n:21,level:5,title:"Shopping List Manager",sub:"Lists, append, remove, iteration",tags:["list","append()","remove()","for","len()"],
-   note:"First real list program. Walk through index positions. Show that lists are ordered and mutable.",
-   code:`shopping_list = []
-
-print("Shopping List Manager")
-print("Commands: add, remove, show, quit\n")
-
-while True:
-    command = input("Command: ").lower()
-
-    if command == "add":
-        item = input("Item to add: ")
-        shopping_list.append(item)
-        print(f"Added '{item}'.")
-    elif command == "remove":
-        item = input("Item to remove: ")
-        if item in shopping_list:
-            shopping_list.remove(item)
-            print(f"Removed '{item}'.")
-        else:
-            print(f"'{item}' not in list.")
-    elif command == "show":
-        if not shopping_list:
-            print("Your list is empty.")
-        else:
-            print(f"\nShopping list ({len(shopping_list)} items):")
-            for i, item in enumerate(shopping_list, 1):
-                print(f"  {i}. {item}")
-            print()
-    elif command == "quit":
-        print("Goodbye!")
-        break
-    else:
-        print("Unknown command.")`},
+   note:"Walk through index positions. Show that lists are ordered and mutable — this is what makes them powerful.",
+   code:'shopping_list = []\n\nprint("Shopping List Manager")\nprint("Commands: add, remove, show, quit\\n")\n\nwhile True:\n    command = input("Command: ").lower()\n\n    if command == "add":\n        item = input("Item to add: ")\n        shopping_list.append(item)\n        print(f"Added \'{item}\'.")\n    elif command == "remove":\n        item = input("Item to remove: ")\n        if item in shopping_list:\n            shopping_list.remove(item)\n            print(f"Removed \'{item}\'.")\n        else:\n            print(f"\'{item}\' not in list.")\n    elif command == "show":\n        if not shopping_list:\n            print("Your list is empty.")\n        else:\n            print(f"\\nShopping list ({len(shopping_list)} items):")\n            for i, item in enumerate(shopping_list, 1):\n                print(f"  {i}. {item}")\n            print()\n    elif command == "quit":\n        print("Goodbye!")\n        break\n    else:\n        print("Unknown command.")'},
 
   {n:22,level:5,title:"High Score Tracker",sub:"Lists, sort, max, min, slicing",tags:["list","sort()","max()","min()","slicing"],
-   note:"Shows built-in list functions. Sorted() vs .sort() distinction is worth a class discussion.",
-   code:`scores = []
-
-print("Enter scores (type 'done' when finished):")
-
-while True:
-    entry = input("Score: ")
-    if entry.lower() == "done":
-        break
-    try:
-        scores.append(int(entry))
-    except:
-        print("Please enter a whole number.")
-
-if scores:
-    scores.sort(reverse=True)
-    print(f"\n--- Score Report ---")
-    print(f"Scores:   {scores}")
-    print(f"Highest:  {scores[0]}")
-    print(f"Lowest:   {scores[-1]}")
-    print(f"Average:  {sum(scores)/len(scores):.1f}")
-    print(f"Top 3:    {scores[:3]}")
-else:
-    print("No scores entered.")`},
+   note:"Shows built-in list functions. sorted() vs .sort() distinction is worth a class discussion.",
+   code:'scores = []\n\nprint("Enter scores (type done when finished):")\n\nwhile True:\n    entry = input("Score: ")\n    if entry.lower() == "done":\n        break\n    try:\n        scores.append(int(entry))\n    except:\n        print("Please enter a whole number.")\n\nif scores:\n    scores.sort(reverse=True)\n    print(f"\\n--- Score Report ---")\n    print(f"Scores:   {scores}")\n    print(f"Highest:  {scores[0]}")\n    print(f"Lowest:   {scores[-1]}")\n    print(f"Average:  {sum(scores)/len(scores):.1f}")\n    print(f"Top 3:    {scores[:3]}")\nelse:\n    print("No scores entered.")'},
 
   {n:23,level:5,title:"String Analyzer",sub:"String methods, looping characters",tags:["str methods","for","len()","count()"],
-   note:"Strings as sequences is key. Show that a string is really a list of characters — index, slice, iterate.",
-   code:`text = input("Enter a sentence: ")
-
-vowels = "aeiouAEIOU"
-vowel_count = 0
-consonant_count = 0
-
-for char in text:
-    if char.isalpha():
-        if char in vowels:
-            vowel_count += 1
-        else:
-            consonant_count += 1
-
-word_list = text.split()
-
-print(f"\n--- String Analysis ---")
-print(f"Original:    {text}")
-print(f"Uppercase:   {text.upper()}")
-print(f"Reversed:    {text[::-1]}")
-print(f"Word count:  {len(word_list)}")
-print(f"Char count:  {len(text)}")
-print(f"Vowels:      {vowel_count}")
-print(f"Consonants:  {consonant_count}")`},
+   note:"Strings as sequences is key. Show that a string is really a list of characters: index, slice, iterate.",
+   code:'text = input("Enter a sentence: ")\n\nvowels = "aeiouAEIOU"\nvowel_count = 0\nconsonant_count = 0\n\nfor char in text:\n    if char.isalpha():\n        if char in vowels:\n            vowel_count += 1\n        else:\n            consonant_count += 1\n\nword_list = text.split()\n\nprint(f"\\n--- String Analysis ---")\nprint(f"Original:    {text}")\nprint(f"Uppercase:   {text.upper()}")\nprint(f"Reversed:    {text[::-1]}")\nprint(f"Word count:  {len(word_list)}")\nprint(f"Char count:  {len(text)}")\nprint(f"Vowels:      {vowel_count}")\nprint(f"Consonants:  {consonant_count}")'},
 
   {n:24,level:5,title:"Caesar Cipher",sub:"ord(), chr(), string building",tags:["ord()","chr()","str","for","modulo"],
-   note:"Connects to history (Julius Caesar). ord() and chr() bridge strings to numbers — great discussion of ASCII.",
-   code:`def encrypt(message, shift):
-    result = ""
-    for char in message:
-        if char.isalpha():
-            base = ord('A') if char.isupper() else ord('a')
-            result += chr((ord(char) - base + shift) % 26 + base)
-        else:
-            result += char
-    return result
-
-def decrypt(message, shift):
-    return encrypt(message, -shift)
-
-message = input("Enter message: ")
-shift = int(input("Shift amount (1-25): "))
-
-encrypted = encrypt(message, shift)
-decrypted = decrypt(encrypted, shift)
-
-print(f"\nOriginal:  {message}")
-print(f"Encrypted: {encrypted}")
-print(f"Decrypted: {decrypted}")`},
+   note:"Connects to history. ord() and chr() bridge strings to numbers — great discussion of ASCII encoding.",
+   code:'def encrypt(message, shift):\n    result = ""\n    for char in message:\n        if char.isalpha():\n            base = ord("A") if char.isupper() else ord("a")\n            result += chr((ord(char) - base + shift) % 26 + base)\n        else:\n            result += char\n    return result\n\ndef decrypt(message, shift):\n    return encrypt(message, -shift)\n\nmessage = input("Enter message: ")\nshift = int(input("Shift amount (1-25): "))\n\nencrypted = encrypt(message, shift)\ndecrypted = decrypt(encrypted, shift)\n\nprint(f"\\nOriginal:  {message}")\nprint(f"Encrypted: {encrypted}")\nprint(f"Decrypted: {decrypted}")'},
 
   {n:25,level:6,title:"Contact Book",sub:"Dictionaries, key-value pairs",tags:["dict","keys()","values()","in"],
-   note:"A dictionary is the perfect data structure for contacts. Key:value is the core vocabulary to establish here.",
-   code:`contacts = {}
-
-print("Contact Book — commands: add, lookup, list, delete, quit\n")
-
-while True:
-    cmd = input("Command: ").lower()
-
-    if cmd == "add":
-        name = input("Name: ")
-        phone = input("Phone: ")
-        contacts[name] = phone
-        print(f"Added {name}.")
-    elif cmd == "lookup":
-        name = input("Name to look up: ")
-        if name in contacts:
-            print(f"{name}: {contacts[name]}")
-        else:
-            print(f"{name} not found.")
-    elif cmd == "list":
-        if contacts:
-            for name, phone in contacts.items():
-                print(f"  {name}: {phone}")
-        else:
-            print("No contacts yet.")
-    elif cmd == "delete":
-        name = input("Name to delete: ")
-        if name in contacts:
-            del contacts[name]
-            print(f"Deleted {name}.")
-        else:
-            print("Not found.")
-    elif cmd == "quit":
-        break`},
+   note:"Key:value is the core vocabulary here. A dictionary is the perfect data structure for contacts.",
+   code:'contacts = {}\n\nprint("Contact Book — commands: add, lookup, list, delete, quit\\n")\n\nwhile True:\n    cmd = input("Command: ").lower()\n\n    if cmd == "add":\n        name = input("Name: ")\n        phone = input("Phone: ")\n        contacts[name] = phone\n        print(f"Added {name}.")\n    elif cmd == "lookup":\n        name = input("Name to look up: ")\n        if name in contacts:\n            print(f"{name}: {contacts[name]}")\n        else:\n            print(f"{name} not found.")\n    elif cmd == "list":\n        if contacts:\n            for name, phone in contacts.items():\n                print(f"  {name}: {phone}")\n        else:\n            print("No contacts yet.")\n    elif cmd == "delete":\n        name = input("Name to delete: ")\n        if name in contacts:\n            del contacts[name]\n            print(f"Deleted {name}.")\n        else:\n            print("Not found.")\n    elif cmd == "quit":\n        break'},
 
   {n:26,level:6,title:"Word Frequency Counter",sub:"Dictionaries as counters",tags:["dict","split()","get()","sorted()"],
    note:"Building a counter dictionary is a key algorithmic pattern. .get() with a default is a must-teach method.",
-   code:`text = input("Enter a sentence or paragraph:\n")
-
-words = text.lower().split()
-frequency = {}
-
-for word in words:
-    word = word.strip(".,!?;:")
-    frequency[word] = frequency.get(word, 0) + 1
-
-sorted_words = sorted(frequency.items(), key=lambda x: x[1], reverse=True)
-
-print(f"\n--- Word Frequency ---")
-print(f"Total words: {len(words)}")
-print(f"Unique words: {len(frequency)}\n")
-print("Word          Count")
-print("-" * 22)
-for word, count in sorted_words:
-    bar = "█" * count
-    print(f"{word:<14} {count}  {bar}")`},
+   code:'text = input("Enter a sentence or paragraph:\\n")\n\nwords = text.lower().split()\nfrequency = {}\n\nfor word in words:\n    word = word.strip(".,!?;:")\n    frequency[word] = frequency.get(word, 0) + 1\n\nsorted_words = sorted(frequency.items(), key=lambda x: x[1], reverse=True)\n\nprint(f"\\n--- Word Frequency ---")\nprint(f"Total words: {len(words)}")\nprint(f"Unique words: {len(frequency)}\\n")\nprint("Word          Count")\nprint("-" * 22)\nfor word, count in sorted_words:\n    print(f"{word:<14} {count}")'},
 
   {n:27,level:6,title:"Student Grade Book",sub:"Nested dictionaries",tags:["nested dict","for","sum()","f-strings"],
    note:"Nested data structures unlock real-world modeling. Draw it as a table: students are rows, subjects are columns.",
-   code:`gradebook = {
-    "Alex": {"Math": 92, "Science": 88, "English": 95},
-    "Jordan": {"Math": 78, "Science": 84, "English": 71},
-    "Sam": {"Math": 95, "Science": 97, "English": 89},
-}
-
-print(f"{'Name':<10} {'Math':>6} {'Science':>8} {'English':>8} {'Average':>8}")
-print("-" * 44)
-
-for student, grades in gradebook.items():
-    avg = sum(grades.values()) / len(grades)
-    print(f"{student:<10} {grades['Math']:>6} {grades['Science']:>8} {grades['English']:>8} {avg:>7.1f}")
-
-print("\nClass averages by subject:")
-subjects = ["Math", "Science", "English"]
-for subject in subjects:
-    avg = sum(gradebook[s][subject] for s in gradebook) / len(gradebook)
-    print(f"  {subject}: {avg:.1f}")`},
+   code:'gradebook = {\n    "Alex":   {"Math": 92, "Science": 88, "English": 95},\n    "Jordan": {"Math": 78, "Science": 84, "English": 71},\n    "Sam":    {"Math": 95, "Science": 97, "English": 89},\n}\n\nprint(f"{\'Name\':<10} {\'Math\':>6} {\'Science\':>8} {\'English\':>8} {\'Average\':>8}")\nprint("-" * 44)\n\nfor student, grades in gradebook.items():\n    avg = sum(grades.values()) / len(grades)\n    print(f"{student:<10} {grades[\'Math\']:>6} {grades[\'Science\']:>8} {grades[\'English\']:>8} {avg:>7.1f}")\n\nprint("\\nClass averages by subject:")\nfor subject in ["Math", "Science", "English"]:\n    avg = sum(gradebook[s][subject] for s in gradebook) / len(gradebook)\n    print(f"  {subject}: {avg:.1f}")'},
 
   {n:28,level:7,title:"Animal Class",sub:"class, __init__, methods",tags:["class","__init__","self","methods"],
-   note:"The jump to OOP. __init__ is the constructor — build the analogy: a class is a blueprint, an object is the house.",
-   code:`class Animal:
-    def __init__(self, name, species, sound):
-        self.name = name
-        self.species = species
-        self.sound = sound
-
-    def speak(self):
-        print(f"{self.name} says {self.sound}!")
-
-    def describe(self):
-        print(f"{self.name} is a {self.species}.")
-
-dog = Animal("Rex", "dog", "woof")
-cat = Animal("Luna", "cat", "meow")
-cow = Animal("Bessie", "cow", "moo")
-
-dog.speak()
-cat.speak()
-cow.speak()
-dog.describe()
-
-animals = [dog, cat, cow]
-print("\nAll animals:")
-for a in animals:
-    print(f"  {a.name} ({a.species})")`},
+   note:"__init__ is the constructor. Build the analogy: a class is a blueprint, an object is the house built from it.",
+   code:'class Animal:\n    def __init__(self, name, species, sound):\n        self.name = name\n        self.species = species\n        self.sound = sound\n\n    def speak(self):\n        print(f"{self.name} says {self.sound}!")\n\n    def describe(self):\n        print(f"{self.name} is a {self.species}.")\n\ndog = Animal("Rex", "dog", "woof")\ncat = Animal("Luna", "cat", "meow")\ncow = Animal("Bessie", "cow", "moo")\n\ndog.speak()\ncat.speak()\ncow.speak()\ndog.describe()\n\nanimals = [dog, cat, cow]\nprint("\\nAll animals:")\nfor a in animals:\n    print(f"  {a.name} ({a.species})")'},
 
   {n:29,level:7,title:"Bank Account",sub:"Class with state, multiple methods",tags:["class","__init__","methods","self"],
-   note:"Attributes that change over time (balance) show why objects are powerful. Encapsulation vocabulary fits naturally here.",
-   code:`class BankAccount:
-    def __init__(self, owner, balance=0):
-        self.owner = owner
-        self.balance = balance
-        self.transactions = []
+   note:"Attributes that change over time (balance) show why objects are powerful. Introduce encapsulation vocabulary here.",
+   code:'class BankAccount:\n    def __init__(self, owner, balance=0):\n        self.owner = owner\n        self.balance = balance\n        self.transactions = []\n\n    def deposit(self, amount):\n        if amount > 0:\n            self.balance += amount\n            self.transactions.append(f"+ ${amount:.2f}")\n            print(f"Deposited ${amount:.2f}. Balance: ${self.balance:.2f}")\n        else:\n            print("Deposit must be positive.")\n\n    def withdraw(self, amount):\n        if amount > self.balance:\n            print("Insufficient funds.")\n        elif amount <= 0:\n            print("Amount must be positive.")\n        else:\n            self.balance -= amount\n            self.transactions.append(f"- ${amount:.2f}")\n            print(f"Withdrew ${amount:.2f}. Balance: ${self.balance:.2f}")\n\n    def show_statement(self):\n        print(f"\\n--- {self.owner}\'s Account ---")\n        for t in self.transactions:\n            print(f"  {t}")\n        print(f"  Balance: ${self.balance:.2f}")\n\naccount = BankAccount("Alex", 100.00)\naccount.deposit(50)\naccount.withdraw(30)\naccount.withdraw(200)\naccount.deposit(75)\naccount.show_statement()'},
 
-    def deposit(self, amount):
-        if amount > 0:
-            self.balance += amount
-            self.transactions.append(f"+ ${amount:.2f}")
-            print(f"Deposited ${amount:.2f}. Balance: ${self.balance:.2f}")
-        else:
-            print("Deposit must be positive.")
-
-    def withdraw(self, amount):
-        if amount > self.balance:
-            print("Insufficient funds.")
-        elif amount <= 0:
-            print("Amount must be positive.")
-        else:
-            self.balance -= amount
-            self.transactions.append(f"- ${amount:.2f}")
-            print(f"Withdrew ${amount:.2f}. Balance: ${self.balance:.2f}")
-
-    def show_statement(self):
-        print(f"\n--- {self.owner}'s Account ---")
-        for t in self.transactions:
-            print(f"  {t}")
-        print(f"  Balance: ${self.balance:.2f}")
-
-account = BankAccount("Alex", 100.00)
-account.deposit(50)
-account.withdraw(30)
-account.withdraw(200)
-account.deposit(75)
-account.show_statement()`},
-
-  {n:30,level:7,title:"RPG Character Battle",sub:"Multiple classes, interaction",tags:["class","__init__","methods","random","multiple objects"],
-   note:"The capstone OOP program. Two classes interact — this is composition. random adds unpredictability, making it feel like a real game.",
-   code:`import random
-
-class Character:
-    def __init__(self, name, health, attack, defense):
-        self.name = name
-        self.health = health
-        self.max_health = health
-        self.attack = attack
-        self.defense = defense
-
-    def is_alive(self):
-        return self.health > 0
-
-    def take_damage(self, damage):
-        actual = max(0, damage - self.defense)
-        self.health = max(0, self.health - actual)
-        return actual
-
-    def attack_target(self, target):
-        damage = random.randint(self.attack - 3, self.attack + 5)
-        taken = target.take_damage(damage)
-        print(f"  {self.name} hits {target.name} for {taken} damage! "
-              f"({target.health}/{target.max_health} HP left)")
-
-    def status(self):
-        bar = "█" * (self.health // 5) + "░" * ((self.max_health - self.health) // 5)
-        return f"{self.name}: [{bar}] {self.health}/{self.max_health}"
-
-hero   = Character("Hero",   100, 15, 5)
-dragon = Character("Dragon", 120, 18, 8)
-
-print("⚔️  BATTLE START ⚔️\n")
-round_num = 1
-
-while hero.is_alive() and dragon.is_alive():
-    print(f"--- Round {round_num} ---")
-    hero.attack_target(dragon)
-    if dragon.is_alive():
-        dragon.attack_target(hero)
-    print(f"  {hero.status()}")
-    print(f"  {dragon.status()}\n")
-    round_num += 1
-
-winner = hero if hero.is_alive() else dragon
-print(f"🏆 {winner.name} wins after {round_num-1} rounds!")`},
+  {n:30,level:7,title:"RPG Character Battle",sub:"Multiple classes interacting",tags:["class","__init__","methods","random","multiple objects"],
+   note:"The capstone OOP program. Two classes interact — this is composition. random adds unpredictability like a real game.",
+   code:'import random\n\nclass Character:\n    def __init__(self, name, health, attack, defense):\n        self.name = name\n        self.health = health\n        self.max_health = health\n        self.attack = attack\n        self.defense = defense\n\n    def is_alive(self):\n        return self.health > 0\n\n    def take_damage(self, damage):\n        actual = max(0, damage - self.defense)\n        self.health = max(0, self.health - actual)\n        return actual\n\n    def attack_target(self, target):\n        damage = random.randint(self.attack - 3, self.attack + 5)\n        taken = target.take_damage(damage)\n        print(f"  {self.name} hits {target.name} for {taken} damage! "\n              f"({target.health}/{target.max_health} HP left)")\n\nhero   = Character("Hero",   100, 15, 5)\ndragon = Character("Dragon", 120, 18, 8)\n\nprint("BATTLE START\\n")\nround_num = 1\n\nwhile hero.is_alive() and dragon.is_alive():\n    print(f"--- Round {round_num} ---")\n    hero.attack_target(dragon)\n    if dragon.is_alive():\n        dragon.attack_target(hero)\n    print(f"  Hero:   {hero.health}/{hero.max_health} HP")\n    print(f"  Dragon: {dragon.health}/{dragon.max_health} HP\\n")\n    round_num += 1\n\nwinner = hero if hero.is_alive() else dragon\nprint(f"{winner.name} wins after {round_num-1} rounds!")'},
 ];
 
-let activeLevel = 0;
-let searchTerm = "";
+function setLevel(id, btn) {
+  activeLevel = id;
+  document.querySelectorAll('.pill').forEach(function(p) { p.classList.remove('active'); });
+  btn.classList.add('active');
+  render();
+}
 
-function renderFilters(){
-  const f=document.getElementById("filters");
-  f.innerHTML='';
-  const allBtn=document.createElement("button");
-  allBtn.className="pill"+(activeLevel===0?" active":"");
-  allBtn.textContent="All";
-  allBtn.onclick=()=>{activeLevel=0;render()};
-  f.appendChild(allBtn);
-  LEVELS.forEach(l=>{
-    const b=document.createElement("button");
-    b.className="pill"+(activeLevel===l.id?" active":"");
-    b.textContent=l.short;
-    b.onclick=()=>{activeLevel=l.id;render()};
-    f.appendChild(b);
+function escHtml(s) {
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+function toggle(id) {
+  var body = document.getElementById('body-' + id);
+  var arrow = document.getElementById('arrow-' + id);
+  var isOpen = body.classList.contains('show');
+  body.classList.toggle('show', !isOpen);
+  arrow.classList.toggle('open', !isOpen);
+}
+
+function copyCode(n) {
+  var prog = PROGRAMS.find(function(p){ return p.n === n; });
+  var btn = document.getElementById('copybtn-' + n);
+  navigator.clipboard.writeText(prog.code).then(function() {
+    btn.textContent = 'Copied!';
+    setTimeout(function(){ btn.textContent = 'Copy'; }, 1800);
   });
 }
 
-function filtered(){
-  return PROGRAMS.filter(p=>{
-    const matchLevel=activeLevel===0||p.level===activeLevel;
-    const q=searchTerm.toLowerCase();
-    const matchSearch=!q||p.title.toLowerCase().includes(q)||p.sub.toLowerCase().includes(q)||p.tags.some(t=>t.toLowerCase().includes(q))||p.note.toLowerCase().includes(q)||p.code.toLowerCase().includes(q);
-    return matchLevel&&matchSearch;
+function render() {
+  var q = document.getElementById('search').value.toLowerCase();
+  var progs = PROGRAMS.filter(function(p) {
+    var matchLevel = activeLevel === 0 || p.level === activeLevel;
+    var matchSearch = !q ||
+      p.title.toLowerCase().indexOf(q) >= 0 ||
+      p.sub.toLowerCase().indexOf(q) >= 0 ||
+      p.tags.some(function(t){ return t.toLowerCase().indexOf(q) >= 0; }) ||
+      p.note.toLowerCase().indexOf(q) >= 0 ||
+      p.code.toLowerCase().indexOf(q) >= 0;
+    return matchLevel && matchSearch;
   });
-}
 
-function render(){
-  renderFilters();
-  const list=document.getElementById("list");
-  const progs=filtered();
-  document.getElementById("stats").textContent=`Showing ${progs.length} of ${PROGRAMS.length} programs`;
-  list.innerHTML="";
-  if(!progs.length){list.innerHTML='<div class="no-results">No programs match your search.</div>';return;}
-  progs.forEach(p=>{
-    const card=document.createElement("div");
-    card.className="prog-card";
-    const levelObj=LEVELS.find(l=>l.id===p.level);
-    card.innerHTML=`
-      <div class="prog-header" onclick="toggle(this)">
-        <div class="prog-num">${p.n}</div>
-        <div class="prog-header-text">
-          <div class="prog-title">${p.title}</div>
-          <div class="prog-sub">${p.sub}</div>
-        </div>
-        <span class="prog-badge badge-${p.level}">${levelObj.short}</span>
-        <i class="ti ti-chevron-down chevron" aria-hidden="true"></i>
-      </div>
-      <div class="prog-body">
-        <div class="note-bar"><strong>Teacher note:</strong> ${p.note}</div>
-        <div class="concept-tags">${p.tags.map(t=>`<span class="ctag">${t}</span>`).join("")}</div>
-        <div class="code-block">
-          <button class="copy-btn" onclick="copyCode(this)"><i class="ti ti-copy" aria-hidden="true"></i> Copy</button>
-          <pre><code>${escHtml(p.code)}</code></pre>
-        </div>
-      </div>`;
-    list.appendChild(card);
+  document.getElementById('count').textContent = 'Showing ' + progs.length + ' of ' + PROGRAMS.length + ' programs';
+
+  var html = '';
+  LEVELS.forEach(function(lev) {
+    var group = progs.filter(function(p){ return p.level === lev.id; });
+    if (!group.length) return;
+    html += '<div class="level-group">';
+    html += '<div class="level-heading">' + lev.name + '</div>';
+    group.forEach(function(p) {
+      html += '<div class="card">';
+      html += '<div class="card-header" onclick="toggle(' + p.n + ')">';
+      html += '<div class="num">' + p.n + '</div>';
+      html += '<div class="card-info"><div class="card-title">' + p.title + '</div><div class="card-sub">' + p.sub + '</div></div>';
+      html += '<span class="arrow" id="arrow-' + p.n + '">&#9654;</span>';
+      html += '</div>';
+      html += '<div class="card-body" id="body-' + p.n + '">';
+      html += '<div class="note"><strong>Teacher note:</strong> ' + p.note + '</div>';
+      html += '<div class="tags">' + p.tags.map(function(t){ return '<span class="tag">' + t + '</span>'; }).join('') + '</div>';
+      html += '<div class="code-wrap">';
+      html += '<button class="copy-btn" id="copybtn-' + p.n + '" onclick="copyCode(' + p.n + ')">Copy</button>';
+      html += '<pre>' + escHtml(p.code) + '</pre>';
+      html += '</div></div></div>';
+    });
+    html += '</div>';
   });
+
+  document.getElementById('main').innerHTML = html;
 }
 
-function toggle(header){
-  const body=header.nextElementSibling;
-  const chev=header.querySelector(".chevron");
-  const isOpen=body.classList.contains("show");
-  body.classList.toggle("show",!isOpen);
-  chev.classList.toggle("open",!isOpen);
-}
-
-function copyCode(btn){
-  const code=btn.nextElementSibling.querySelector("code").textContent;
-  navigator.clipboard.writeText(code).then(()=>{
-    btn.innerHTML='<i class="ti ti-check" aria-hidden="true"></i> Copied!';
-    setTimeout(()=>{btn.innerHTML='<i class="ti ti-copy" aria-hidden="true"></i> Copy';},1800);
-  });
-}
-
-function escHtml(s){return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}
-
-document.getElementById("search").addEventListener("input",e=>{searchTerm=e.target.value;render();});
 render();
 </script>
+</body>
+</html>
